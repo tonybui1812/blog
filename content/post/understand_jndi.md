@@ -81,27 +81,9 @@ Typical uses of JNDI include:
          "weblogic.jndi.WLInitialContextFactory");
   ht.put(Context.PROVIDER_URL,
          "t3://localhost:7001");
-
-  try {
-    ctx = new InitialContext(ht);
-    // Use the context in your program
-	try { 
-    ServiceBean bean = (ServiceBean)ctx.lookup("ejb.serviceBean");
-	}catch (NameNotFoundException e) {
-	// binding does not exist
-	}catch (NamingException e) {
-	// a failure occurred
-	}
-  }
-  catch (NamingException e) {
-    // a failure occurred
-  }
-  finally {
-    try {ctx.close();}
-    catch (Exception e) {
-      // a failure occurred
-    }
-  }
+  ctx = new InitialContext(ht);
+  ServiceBean bean = (ServiceBean)ctx.lookup("ejb.serviceBean");
+  
   </code>
   </pre>
 </div>
