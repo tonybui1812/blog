@@ -1,0 +1,65 @@
+baseURL = "https://tonybui1812.github.io/"
+languageCode = "en-us"
+title = "Tony Bui"
+theme = "blackburn-master"
+author = "Yoshiharu Yamashita"
+copyright = "&copy; 2016. All rights reserved."
+canonifyurls = true
+paginate = 10
+
+[indexes]
+  tag = "tags"
+  topic = "topics"
+
+[params]
+  # Shown in the home page
+  subtitle = "Fullstack Engineer"
+  brand = "Tony Bui"
+  googleAnalytics = "Your Google Analytics tracking ID"
+  disqus = "Your Disqus shortname"
+  # CSS name for highlight.js
+  highlightjs = "androidstudio"
+  dateFormat = "02 Jan 2006, 15:04"
+
+[menu]
+  # Shown in the side menu.
+  [[menu.main]]
+    name = "About"
+    pre = "<i class='fa fa-user fa-fw'></i>"
+    weight = 1
+    identifier = "about"
+    url = "/about/"  
+  [[menu.main]]
+    name = "Posts"
+    pre = "<i class='fa fa-list fa-fw'></i>"
+    weight = 2
+    identifier = "post"
+    url = "/post/"
+  [[menu.main]]
+    name = "Topics"
+    pre = "<i class='fa fa-list fa-fw'></i>"
+    weight = 2
+    identifier = "topics"
+    url = "/topics/"	
+  [[menu.main]]
+    name = "Tags"
+    pre = "<i class='fa fa-list fa-fw'></i>"
+    weight = 2
+    identifier = "tags"
+    url = "/tags/"  
+  [[menu.main]]
+    name = "Contact"
+    pre = "<i class='fa fa-phone fa-fw'></i>"
+    weight = 4
+    url = "/contact/"
+[[menu.main]]
+    name = "Home"
+    pre = "<i class='fa fa-home fa-fw'></i>"
+    weight = 10
+    identifier = "home"
+    url = "/"
+[social]
+  # Link your social networking accouns to the side menu
+  # by entering your username or ID.  
+  stackoverflow = "10383863/tony-bui"
+  linkedin = "bùi-tuấn-31167653"

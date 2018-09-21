@@ -1,0 +1,23 @@
+{{ partial "header.html" . }}
+
+<div class="header">
+  <h1>{{ .Title }}</h1>
+  <h2>{{ .Description }}</h2>
+</div>
+<div class="content">
+
+   {{ range .Pages.GroupByDate "2006" }}
+<h3>{{ .Key }}</h3>
+        <ul>
+        <!-- Renders the li.html content view for each content/post/*.md -->
+             {{ range .Pages }}
+    <li>
+    {{ .Date.Format "Mon, Jan 2, 2006" }} - <a href="{{ .Permalink }}">{{ .Title }}</a>
+    
+    </li>
+    {{ end }}
+        </ul>
+		   {{ end }}
+</div>
+
+{{ partial "footer.html" . }}
