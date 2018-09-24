@@ -16,17 +16,20 @@ tags:
 - Java
 title: "JNDI - Understand"
 ---
+
 <link rel="stylesheet" href="/css/w3css_4_w3.css">
 <link rel="stylesheet" href="/highlight/styles/default.css">
 <script src="/highlight/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-
 What we have in this post:
 
 - Overview
 - Use cases
 - Samples
 - Source code
+
+<!--more-->
+
 
 Let's begin
 
@@ -41,15 +44,15 @@ The <b>Java Naming and Directory Interface (JNDI)</b> is a Java API for a direct
 
 <b>API</b>: Application Programing Interface
 
-The information looked up via JNDI may be supplied by a server, a flat file, or a database; the choice is up to the implementation used.
+The information looked up via JNDI may be supplied by a server, a flat file, or a database; the choice is up to the implementation used. 
 
 <a href="https://en.wikipedia.org/wiki/Java_Naming_and_Directory_Interface" target="_blank">More on Wiki</a>
 
 Sun Microsystems first released the JNDI specification on March 10, 1997. As of 2006, the current version is JNDI 1.2.
 
 <img src="/img/sun_jw_jndi_orig.gif">
-
 <i><b>JNDI architecture</b></i>
+
 <a href="https://www.javaworld.com/article/2074186/jndi/j2ee-or-j2se--jndi-works-with-both.html" target="_blank">More on JavaWorld</a>
 
 
@@ -64,6 +67,20 @@ Typical uses of JNDI include:
 	- <a href="https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.0/com.ibm.websphere.nd.multiplatform.doc/ae/tnam_develop_naming.html" target="_blank"><b>IBM</b> WebSephere JNDI</a>
 	
 <h2>Samples</h2>	
+If you don't have any beans in your web server, you can download my <a href="https://github.com/tonybui1812/EasyEJB">EasyEJB</a> in Github.
+
+<pre>
+This sample use Java EE 6 API Library
+<code class="java">
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+</code>
+</pre>
+
+And try the following codes
+
+
 <h3>WebServer JNDI</h3>
 
 <div class="w3-bar w3-black">
@@ -82,10 +99,10 @@ Typical uses of JNDI include:
   ht.put(Context.PROVIDER_URL,
          "t3://localhost:7001");
   ctx = new InitialContext(ht);
-  ServiceBean bean = (ServiceBean)ctx.lookup("ejb.serviceBean");
-  
+  EasyBean bean = (EasyBean)ctx.lookup("java:global/EasyEJB-War/EasyEJB/EasyBean");  
   </code>
   </pre>
+  
 </div>
 
 <div id="JBoss" class="w3-container city" style="display:none" >
@@ -112,5 +129,66 @@ Object o = ctx.lookup("com/mycom/MyEJBHome");
 </code>
 </pre>
 </div>
+
 <h2>Source codes</h2>	
+<pre>
+Here' a sample source code for get my EasyBean (on WebLogic Server).
+See my <a href="https://github.com/tonybui1812/EasyEJB">EasyEJB</a>.
+
+<code>
+package com.tonybui1812.makeitsimple.easyClient;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Hashtable;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+/**
+ *
+ * @author tonybui1812
+ * Make It Simple
+ */
+public class MyClient {
+    private static void invokeByMethodName(Object obj, String methodName) {
+        Method method = null;
+        try {
+            method = obj.getClass().getMethod(methodName);
+        } catch (SecurityException e) {
+        } catch (NoSuchMethodException e) {
+        }
+        try {
+            Object o = method.invoke(obj, null);
+            System.out.println(o.toString());
+        } catch (IllegalAccessException ex) {
+        } catch (IllegalArgumentException ex) {
+        } catch (InvocationTargetException ex) {
+        }
+    }
+    public static void main(String[] args) {
+        Hashtable env = new Hashtable();
+        env.put(Context.INITIAL_CONTEXT_FACTORY,
+                "weblogic.jndi.WLInitialContextFactory");
+        env.put(Context.SECURITY_PRINCIPAL, "weblogic");
+        env.put(Context.SECURITY_CREDENTIALS, "yourpasswordhere");
+        env.put(Context.PROVIDER_URL, "t3://localhost:7001");
+        Context ic = null;
+        try {
+            ic = new InitialContext(env);
+        } catch (NamingException ex) {
+        }
+        try {
+//            Object easyBean = ic.lookup("tonybui1812#com.tonybui1812.makeitsimple.ejb.EasyEJB");
+            Object easyBean = ic.lookup("java:global/EasyEJB-War/EasyEJB/EasyBean");
+            invokeByMethodName(easyBean, "getMessage");
+        } catch (NamingException ex) {
+        }
+    }
+}
+</code>
+</pre>
+
+Thanks for readings!
+
+
 <script src="/scripts/tab_function.js" />
+
