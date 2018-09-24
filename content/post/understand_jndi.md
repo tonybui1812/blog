@@ -9,7 +9,7 @@ weight: 12
 project_url: https://tonybui1812.github.io
 series:
 - Developer
-slug: java
+slug: JNDI
 tags:
 - Java naming and Directory Interface
 - JNDI
