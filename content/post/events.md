@@ -1,7 +1,7 @@
 ---
 topics:
 - event-based
-- event-drivent
+- event-driven
 
 date: 2025-10-18 23:13
 weight: 13
@@ -9,7 +9,7 @@ weight: 13
 project_url: https://tonybui1812.github.io
 series:
 - Architecture
-slug: weblogic
+slug: event-sourcing
 tags:
 - events
 - message-queue
